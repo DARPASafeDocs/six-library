@@ -40,6 +40,7 @@ class makewheel(BuildContext):
             targets = self.env['WHEEL_MAP'].keys()
 
         for target in targets:
+            print('self.makeWheel({}, {})'.format(target, self.env['WHEEL_MAP']))
             self.makeWheel(target, self.env['WHEEL_MAP'])
 
 
