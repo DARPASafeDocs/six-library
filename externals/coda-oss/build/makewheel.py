@@ -24,6 +24,8 @@ class makewheel(BuildContext):
         command = 'pip wheel . --wheel-dir {0} --no-deps'.format(binDir)
         print('Current directory: {}'.format(os.getcwd()))
         print('Contents: {}'.format(os.listdir(os.getcwd())))
+        print('Install contents: {}'.format(os.listdir(os.path.join(os.getcwd(),
+                                                                    binDir.split('\\')[0])))
         print('Attempting to call {}'.format(command))
         subprocess.call(command.split())
         os.remove('setup.py')
