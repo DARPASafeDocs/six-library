@@ -22,6 +22,7 @@ class makewheel(BuildContext):
         self.to_log('Creating wheel\n')
         binDir = self.env['install_bindir']
         command = 'pip wheel . --wheel-dir {0} --no-deps'.format(binDir)
+        print('Attempting to call {}'.format(command))
         subprocess.call(command.split())
         os.remove('setup.py')
 
