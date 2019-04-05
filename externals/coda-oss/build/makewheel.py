@@ -26,6 +26,7 @@ class makewheel(BuildContext):
         print('Contents: {}'.format(os.listdir(os.getcwd())))
         print('Install contents: {}'.format(os.listdir(os.path.join(os.getcwd(),
                                                                     binDir.split('\\')[0]))))
+        print('Bin contents: {}'.format(oslistdir(binDir)))
         print('Attempting to call {}'.format(command))
         subprocess.call(command.split())
         os.remove('setup.py')
