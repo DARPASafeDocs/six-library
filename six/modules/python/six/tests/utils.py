@@ -32,10 +32,8 @@ from subprocess import call
 
 def findSixHome():
     if 'WORKSPACE' in os.environ:
-        print('getting sixHome from WORKSPACE')
         return os.environ['WORKSPACE']
 
-    print('backtracking to sixHome')
     currentPath = os.getcwd()
     while os.path.basename(currentPath) != 'six-library':
         parent = os.path.abspath(os.path.join(currentPath, os.pardir))
@@ -49,19 +47,14 @@ def findSixHome():
 
 def installPath():
     home = findSixHome()
-    if not os.path.exists(home):
-        raise IOError('{} does not exist!'.format(home))
-    print('findSixHome(): {}'.format(home))
     children = ['remove_foss.csh', 'README.md', 'six', 'wscript',
                 'sync_externals.csh', 'externals', '.git', 'processFiles.py',
                 'docs', 'waf', '.gitignore', 'LICENSE']
 
     for child in os.listdir(home):
         fullChildPath = os.path.join(home, child)
-        print('Examining {}'.format(fullChildPath))
         if child not in children and os.path.isdir(fullChildPath):
             subdirs = os.listdir(fullChildPath)
-            print(' - subdirs: {}'.format(subdirs))
             if 'tests' in subdirs and 'bin' in subdirs:
                 return fullChildPath
     raise IOError('SixHome \'{}\' does not have expected structure'.format(home))
@@ -72,6 +65,7 @@ def findPythonPath():
         return glob(os.path.join(installPath(), 'lib', 'python*',
                                       'site-packages'))[0]
     elif platform.system() == 'Windows':
+        print('lib: {}'.format(os.listdir(os.path.join(installPath(), 'lib'))))
         return os.path.join(installPath(), 'lib',
                                 'site-packages')
     return ''
