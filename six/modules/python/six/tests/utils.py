@@ -47,6 +47,7 @@ def findSixHome():
 
 def installPath():
     home = findSixHome()
+    print('findSixHome(): {}'.format(home))
     children = ['remove_foss.csh', 'README.md', 'six', 'wscript',
                 'sync_externals.csh', 'externals', '.git', 'processFiles.py',
                 'docs', 'waf', '.gitignore', 'LICENSE']
@@ -57,6 +58,8 @@ def installPath():
             subdirs = os.listdir(fullChildPath)
             if 'tests' in subdirs and 'bin' in subdirs:
                 return fullChildPath
+    raise IOError('SixHome \'{}\' does not have expected structure'.format(home))
+
 
 def findPythonPath():
     if platform.system() == 'Linux':
