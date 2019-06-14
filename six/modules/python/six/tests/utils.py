@@ -32,8 +32,10 @@ from subprocess import call
 
 def findSixHome():
     if 'WORKSPACE' in os.environ:
+        print('getting sixHome from WORKSPACE')
         return os.environ['WORKSPACE']
 
+    print('backtracking to sixHome')
     currentPath = os.getcwd()
     while os.path.basename(currentPath) != 'six-library':
         parent = os.path.abspath(os.path.join(currentPath, os.pardir))
@@ -47,6 +49,8 @@ def findSixHome():
 
 def installPath():
     home = findSixHome()
+    if not os.path.exists(home):
+        raise IOError('{} does not exist!'.format(home))
     print('findSixHome(): {}'.format(home))
     children = ['remove_foss.csh', 'README.md', 'six', 'wscript',
                 'sync_externals.csh', 'externals', '.git', 'processFiles.py',
