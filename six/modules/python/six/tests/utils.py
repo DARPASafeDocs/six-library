@@ -54,8 +54,10 @@ def installPath():
 
     for child in os.listdir(home):
         fullChildPath = os.path.join(home, child)
+        print('Examining {}'.format(fullChildPath))
         if child not in children and os.path.isdir(fullChildPath):
             subdirs = os.listdir(fullChildPath)
+            print(' - subdirs: {}'.format(subdirs))
             if 'tests' in subdirs and 'bin' in subdirs:
                 return fullChildPath
     raise IOError('SixHome \'{}\' does not have expected structure'.format(home))
