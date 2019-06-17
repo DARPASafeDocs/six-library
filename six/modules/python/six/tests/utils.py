@@ -52,9 +52,14 @@ def installPath():
                 'docs', 'waf', '.gitignore', 'LICENSE']
 
     for child in os.listdir(home):
+        if child.startswith('.'):
+            continue
         fullChildPath = os.path.join(home, child)
         if child not in children and os.path.isdir(fullChildPath):
             subdirs = os.listdir(fullChildPath)
+            print('Checking {}'.format(fullChildPath))
+            for subdir in subdirs:
+                print('  - {}'.format(subdir))
             if 'tests' in subdirs and 'bin' in subdirs:
                 return fullChildPath
     raise IOError('SixHome \'{}\' does not have expected structure'.format(home))
